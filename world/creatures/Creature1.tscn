@@ -1,14 +1,220 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://world/creatures/Creature.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/art/sprites/creature_01.png" type="Texture" id=2]
 
+[sub_resource type="AnimationNodeAnimation" id=18]
+animation = "Digging Down Left"
+
+[sub_resource type="AnimationNodeAnimation" id=22]
+animation = "Digging Up Left"
+
+[sub_resource type="AnimationNodeAnimation" id=7]
+animation = "Idle Down"
+
+[sub_resource type="AnimationNodeAnimation" id=10]
+animation = "Running Down"
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+animation = "Running Right"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "Running Up"
+
+[sub_resource type="AnimationNodeAnimation" id=13]
+animation = "Running Left"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=8]
+blend_point_0/node = SubResource( 7 )
+blend_point_0/pos = Vector2( 0, 0 )
+blend_point_1/node = SubResource( 10 )
+blend_point_1/pos = Vector2( 0, -1 )
+blend_point_2/node = SubResource( 11 )
+blend_point_2/pos = Vector2( 1, 0 )
+blend_point_3/node = SubResource( 12 )
+blend_point_3/pos = Vector2( 0, 1 )
+blend_point_4/node = SubResource( 13 )
+blend_point_4/pos = Vector2( -1, 0 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=24]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachine" id=5]
+"states/Digging Down/node" = SubResource( 18 )
+"states/Digging Down/position" = Vector2( 1053, 228 )
+"states/Digging Up Left/node" = SubResource( 22 )
+"states/Digging Up Left/position" = Vector2( 781.328, 231 )
+states/Moving/node = SubResource( 8 )
+states/Moving/position = Vector2( 788, 117 )
+transitions = [ "Moving", "Digging Down", SubResource( 19 ), "Digging Down", "Digging Up Left", SubResource( 23 ), "Digging Up Left", "Moving", SubResource( 24 ) ]
+start_node = "Moving"
+graph_offset = Vector2( 356.328, 0 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=6]
+
+[sub_resource type="Animation" id=17]
+resource_name = "Digging Down Left"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 32, 33, 34, 35, 36, 37, 38, 39 ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "Digging Up Left"
+length = 1.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Idle Down"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 13, 14 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 14 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "Running Down"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 15, 16, 17, 18, 19 ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "Running Left"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "Running Right"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 27, 28, 29, 30, 31 ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "Running Up"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 22, 23, 24, 25, 26 ]
+}
+
 [node name="Creature1" instance=ExtResource( 1 )]
+speed = 125.0
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )
-hframes = 13
-frame = 2
+hframes = 55
+frame = 14
+
+[node name="AnimationTree" type="AnimationTree" parent="Sprite" index="0"]
+tree_root = SubResource( 5 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 6 )
+parameters/Moving/blend_position = Vector2( 0, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite" index="1"]
+"anims/Digging Down Left" = SubResource( 17 )
+"anims/Digging Up Left" = SubResource( 21 )
+"anims/Idle Down" = SubResource( 2 )
+anims/RESET = SubResource( 3 )
+"anims/Running Down" = SubResource( 9 )
+"anims/Running Left" = SubResource( 14 )
+"anims/Running Right" = SubResource( 15 )
+"anims/Running Up" = SubResource( 16 )
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2( 0, 1.5 )
