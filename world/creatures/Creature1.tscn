@@ -42,26 +42,26 @@ animation = "Underground"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=19]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=24]
-switch_mode = 2
-auto_advance = true
-
 [sub_resource type="AnimationNodeStateMachineTransition" id=27]
 switch_mode = 2
 auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=28]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=29]
+switch_mode = 2
+auto_advance = true
+
 [sub_resource type="AnimationNodeStateMachine" id=5]
 "states/Digging Down/node" = SubResource( 18 )
 "states/Digging Down/position" = Vector2( 1053, 228 )
-"states/Digging Up Left/node" = SubResource( 22 )
-"states/Digging Up Left/position" = Vector2( 584.328, 236 )
+"states/Digging Up/node" = SubResource( 22 )
+"states/Digging Up/position" = Vector2( 584.328, 236 )
 states/Idle/node = SubResource( 8 )
 states/Idle/position = Vector2( 788, 117 )
 states/Underground/node = SubResource( 26 )
 states/Underground/position = Vector2( 809.328, 248 )
-transitions = [ "Idle", "Digging Down", SubResource( 19 ), "Digging Up Left", "Idle", SubResource( 24 ), "Digging Down", "Underground", SubResource( 27 ), "Underground", "Digging Up Left", SubResource( 28 ) ]
+transitions = [ "Idle", "Digging Down", SubResource( 19 ), "Digging Down", "Underground", SubResource( 27 ), "Underground", "Digging Up", SubResource( 28 ), "Digging Up", "Idle", SubResource( 29 ) ]
 start_node = "Idle"
 graph_offset = Vector2( 356.328, 0 )
 

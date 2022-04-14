@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://world/items/food/Food.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/art/sprites/apple.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 2.7406
+
+[node name="Apple" instance=ExtResource( 1 )]
+food_name = "apple"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2( -0.491077, -0.526155 )
+shape = SubResource( 1 )
+
+[node name="Sprite" parent="." index="1"]
+texture = ExtResource( 2 )
+hframes = 2

@@ -27,11 +27,13 @@ func _ready():
 
 
 func _process(delta):
-	current_state = determine_state();
+	var next_state := determine_next_state();
+	transition_to_state(current_state, next_state);
+	current_state = next_state;
 #	print("State is now: %s" % current_state)
-	act()
+	act();
 
-func determine_state() -> int:
+func determine_next_state() -> int:
 	var distance_from_player := player.global_position.distance_to(global_position);
 	
 	# TODO I don't like how I'm looking at the animation to determine the state - it should be one-way
@@ -52,15 +54,27 @@ func determine_state() -> int:
 			if animation_state.get_current_node() == "Idle":
 				return State.IDLE;
 			return State.DIGGING_UP;
-		
+	
 	return State.IDLE
+
+
+func transition_to_state(prior_state : int, next_state : int) -> void:
+	match next_state:
+		State.UNDERGROUND:
+			collision_layer = 2;
+			collision_mask = 2;
+		State.IDLE:
+			match prior_state:
+				State.DIGGING_UP:
+					collision_layer = 1;
+					collision_mask = 1;
+
 
 func act() -> void:
 	match current_state:
 		State.DIGGING_DOWN:
 			animation_state.travel("Digging Down");
 		State.DIGGING_UP:
-			print(animation_state.get_current_node());
 			animation_state.travel("Digging Up");
 
 #	var direction := Vector2.ZERO;
