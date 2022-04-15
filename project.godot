@@ -22,7 +22,7 @@ _global_script_class_icons={
 
 config/name="2022Game"
 run/main_scene="res://game/Game.tscn"
-config/icon="res://assets/art/sprites/creature_icon.png"
+config/icon="res://icon.png"
 
 [display]
 

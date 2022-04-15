@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/creature_01_icon.png-c3530b165aa3aa1ca3b949ec58cb4a8c.stex"
+path="res://.import/equipment-pro-v1.1.png-68232e9cd7104ae21a83cff0e25892c8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/sprites/creature_01_icon.png"
-dest_files=[ "res://.import/creature_01_icon.png-c3530b165aa3aa1ca3b949ec58cb4a8c.stex" ]
+source_file="res://assets/font/hf-free-complete/equipment-pro-v1.1/equipment-pro-v1.1.png"
+dest_files=[ "res://.import/equipment-pro-v1.1.png-68232e9cd7104ae21a83cff0e25892c8.stex" ]
 
 [params]
 
