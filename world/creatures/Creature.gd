@@ -46,7 +46,7 @@ func _process(delta):
 	_transition_to_state(current_state, next_state);
 	current_state = next_state;
 	_act();
-	$DebugInfo.text = "State: %s\nfear: %s\nlove: %s" % [State.keys()[current_state], fear, love];
+	$DebugInfo.text = "State: %s\nfear: %s\nlove: %s\nAnimationState: %s" % [State.keys()[current_state], fear, love, animation_state.get_current_node()];
 
 # TODO Any nice way to generate a state graph?
 func _determine_next_state() -> int:
@@ -67,7 +67,7 @@ func _determine_next_state() -> int:
 				return State.DIGGING_DOWN;	
 			if (closest_food):
 				return State.SEEKING_FOOD;
-			if love > 0.0 && distance_from_player > player_distance_preference:
+			if love > 0.0 && distance_from_player > player_distance_preference * 2:
 				return State.FOLLOWING_PLAYER;
 			return State.IDLE;
 		State.DIGGING_DOWN:
@@ -115,6 +115,10 @@ func _transition_to_state(prior_state : int, next_state : int) -> void:
 
 func _act() -> void:
 	match current_state:
+		State.IDLE:
+			$Sprite/AnimationTree.set(
+				"parameters/Idle/blend_position", 
+				Vector2.ZERO);
 		State.DIGGING_DOWN:
 			animation_state.travel("Digging Down");
 		State.DIGGING_UP:
@@ -133,7 +137,7 @@ func _move_towards(position_to_move_towards) -> void:
 	move_and_slide(direction_normalized * speed);
 
 	$Sprite/AnimationTree.set(
-		"parameters/BlendSpace2D/blend_position", 
+		"parameters/Idle/blend_position", 
 		Vector2(
 			direction_normalized.x, 
 			-direction_normalized.y));
