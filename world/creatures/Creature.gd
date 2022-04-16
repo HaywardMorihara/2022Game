@@ -8,6 +8,7 @@ export var love : float = 0.0
 export var speed : float = 75.0
 export var fear_distance_multiplier : float = 50.0
 export var food_detection_radius : float = 100.0
+export var player_distance_preference: float = 20.0
 export var disposition_to_fear : float = 1.0
 export var disposition_to_love : float = 1.0
 
@@ -60,13 +61,14 @@ func _determine_next_state() -> int:
 			distance_to_closest_food = distance_to_this_food;
 			closest_food = food;
 	
-	# TODO I don't like how I'm looking at the animation to determine the state - it should be one-way
 	match current_state:
 		State.IDLE:
 			if (fear > 0.00 && distance_from_player < fear * fear_distance_multiplier):
 				return State.DIGGING_DOWN;	
 			if (closest_food):
 				return State.SEEKING_FOOD;
+			if love > 0.0 && distance_from_player > player_distance_preference:
+				return State.FOLLOWING_PLAYER;
 			return State.IDLE;
 		State.DIGGING_DOWN:
 			if animation_state.get_current_node() == "Underground":
@@ -86,6 +88,12 @@ func _determine_next_state() -> int:
 			if (fear > 0.00 && distance_from_player < fear * fear_distance_multiplier):
 				return State.DIGGING_DOWN;	
 			return State.SEEKING_FOOD;
+		State.FOLLOWING_PLAYER:
+			if closest_food:
+				return State.SEEKING_FOOD;
+			if distance_from_player <= player_distance_preference:
+				return State.IDLE;
+			return State.FOLLOWING_PLAYER;
 	
 	return State.IDLE
 
@@ -112,7 +120,9 @@ func _act() -> void:
 		State.DIGGING_UP:
 			animation_state.travel("Digging Up");
 		State.SEEKING_FOOD:
-			_move_towards(target.position)
+			_move_towards(target.position);
+		State.FOLLOWING_PLAYER:
+			_move_towards(player.position);
 
 # TODO Pathfinding
 func _move_towards(position_to_move_towards) -> void:
