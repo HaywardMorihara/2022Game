@@ -8,7 +8,7 @@
 radius = 3.77096
 height = 6.01081
 
-[node name="Creature" type="KinematicBody2D"]
+[node name="Creature" type="KinematicBody2D" groups=["creature"]]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

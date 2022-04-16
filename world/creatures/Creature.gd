@@ -7,6 +7,7 @@ export var love : float = 0.0
 
 export var speed : float = 75.0
 export var fear_distance_multiplier : float = 50.0
+export var food_detection_radius : float = 100.0
 
 var environment : YSort
 var player : KinematicBody2D
@@ -41,10 +42,16 @@ func _process(delta):
 
 # TODO Any nice way to generate a state graph?
 func _determine_next_state() -> int:
+	# TODO How can we make this more efficient?
 	var distance_from_player := player.global_position.distance_to(global_position);
 	
-	# TODO Need a way to check for nearby food....anyway to do this efficiently?
-	closest_food = environment.get_node("Apple");
+	# TODO How can we make this more efficient?
+	var distance_to_closest_food : float = food_detection_radius;
+	for food in get_tree().get_nodes_in_group("food"):
+		var distance_to_this_food : float = food.global_position.distance_to(global_position);
+		if distance_to_this_food < distance_to_closest_food:
+			distance_to_closest_food = distance_to_this_food;
+			closest_food = food;
 	
 	# TODO I don't like how I'm looking at the animation to determine the state - it should be one-way
 	match current_state:
@@ -67,6 +74,8 @@ func _determine_next_state() -> int:
 				return State.IDLE;
 			return State.DIGGING_UP;
 		State.SEEKING_FOOD:
+			if not closest_food:
+				return State.IDLE;
 			if (fear > 0.00 && distance_from_player < fear * fear_distance_multiplier):
 				return State.DIGGING_DOWN;	
 			return State.SEEKING_FOOD;

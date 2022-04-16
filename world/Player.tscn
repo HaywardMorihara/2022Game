@@ -144,7 +144,7 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=["player"]]
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

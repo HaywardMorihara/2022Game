@@ -18,12 +18,13 @@ func _process(delta):
 
 
 func _on_Food_body_entered(body):
-	# TODO This is going to bite me in the ass at some point, isn't it?
-	if body.name != "Player":
-		return
-	if body.inventory.has(food_name):
-		body.inventory[food_name] += 1;
-	else:
-		body.inventory[food_name] = 1;
-	print(body.inventory);
-	queue_free();
+	if body.is_in_group("player"):
+		if body.inventory.has(food_name):
+			body.inventory[food_name] += 1;
+		else:
+			body.inventory[food_name] = 1;
+		queue_free();
+	elif body.is_in_group("creature"):
+		queue_free();
+		# TODO Make the creature like the player
+	
