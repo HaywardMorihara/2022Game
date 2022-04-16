@@ -15,6 +15,8 @@ func _ready():
 
 
 func _on_Player_place_item(position):
+	# TODO Make this generic
 	var apple = apple_resource.instance();
 	apple.position = position;
+	apple.placed_by_player = true;
 	$YSort.add_child(apple);

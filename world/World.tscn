@@ -51,6 +51,6 @@ position = Vector2( 131.662, 82.5249 )
 [node name="Apple" parent="YSort" instance=ExtResource( 4 )]
 
 [node name="Apple2" parent="YSort" instance=ExtResource( 4 )]
-position = Vector2( 37.4827, -10.0794 )
+position = Vector2( 131.032, 19.2138 )
 
 [connection signal="place_item" from="YSort/Player" to="." method="_on_Player_place_item"]

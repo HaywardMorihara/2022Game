@@ -8,6 +8,8 @@ export var love : float = 0.0
 export var speed : float = 75.0
 export var fear_distance_multiplier : float = 50.0
 export var food_detection_radius : float = 100.0
+export var disposition_to_fear : float = 1.0
+export var disposition_to_love : float = 1.0
 
 var environment : YSort
 var player : KinematicBody2D
@@ -20,6 +22,11 @@ var animation_state : AnimationNodeStateMachinePlayback;
 
 # AI Terms (web.pdx.edu/~arhodes/ai5.pdf)
 # Environment, Percepts, Sensors, Agent, _actuators, _actions
+
+func eat(food) -> void:
+	if food.placed_by_player:
+		fear -= disposition_to_fear
+		love += disposition_to_love
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,7 +45,7 @@ func _process(delta):
 	_transition_to_state(current_state, next_state);
 	current_state = next_state;
 	_act();
-	$StateLabel.text = State.keys()[current_state];
+	$DebugInfo.text = "State: %s\nfear: %s\nlove: %s" % [State.keys()[current_state], fear, love];
 
 # TODO Any nice way to generate a state graph?
 func _determine_next_state() -> int:
