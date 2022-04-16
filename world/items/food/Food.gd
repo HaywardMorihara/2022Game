@@ -18,6 +18,9 @@ func _process(delta):
 
 
 func _on_Food_body_entered(body):
+	# TODO This is going to bite me in the ass at some point, isn't it?
+	if body.name != "Player":
+		return
 	if body.inventory.has(food_name):
 		body.inventory[food_name] += 1;
 	else:
