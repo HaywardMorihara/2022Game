@@ -8,6 +8,7 @@ export var love : float = 0.0
 export var speed : float = 75.0
 export var fear_distance_multiplier : float = 50.0
 export var food_detection_radius : float = 100.0
+export var gold_detection_radius : float = 100.0
 export var player_distance_preference: float = 20.0
 export var disposition_to_fear : float = 1.0
 export var disposition_to_love : float = 1.0
@@ -15,9 +16,11 @@ export var disposition_to_love : float = 1.0
 var environment : YSort
 var player : KinematicBody2D
 var closest_food : Area2D
+var closest_gold_underground : Area2D
 var target
+var on_this_gold
 
-enum State {IDLE, DIGGING_DOWN, UNDERGROUND, DIGGING_UP, FOLLOWING_PLAYER, SEEKING_FOOD};
+enum State {IDLE, DIGGING_DOWN, UNDERGROUND, DIGGING_UP, FOLLOWING_PLAYER, SEEKING_FOOD, SEEKING_GOLD};
 var current_state : int
 var animation_state : AnimationNodeStateMachinePlayback;
 
@@ -48,6 +51,7 @@ func _process(delta):
 	_act();
 	$DebugInfo.text = "State: %s\nfear: %s\nlove: %s\nAnimationState: %s" % [State.keys()[current_state], fear, love, animation_state.get_current_node()];
 
+# TODO Maybe should refactor this to be more like a decision tree?
 # TODO Any nice way to generate a state graph?
 func _determine_next_state() -> int:
 	# TODO How can we make this more efficient?
@@ -60,6 +64,14 @@ func _determine_next_state() -> int:
 		if distance_to_this_food < distance_to_closest_food:
 			distance_to_closest_food = distance_to_this_food;
 			closest_food = food;
+			
+	# TODO How can we make this more efficient?
+	var distance_to_closest_gold_underground : float = gold_detection_radius;
+	for gold in get_tree().get_nodes_in_group("gold_underground"):
+		var distance_to_this_gold : float = gold.global_position.distance_to(global_position);
+		if distance_to_this_gold < distance_to_closest_gold_underground:
+			distance_to_closest_gold_underground = distance_to_this_gold;
+			closest_gold_underground = gold;
 	
 	match current_state:
 		State.IDLE:
@@ -67,6 +79,8 @@ func _determine_next_state() -> int:
 				return State.DIGGING_DOWN;	
 			if (closest_food):
 				return State.SEEKING_FOOD;
+			if (closest_gold_underground):
+				return State.SEEKING_GOLD;
 			if love > 0.0 && distance_from_player > player_distance_preference * 2:
 				return State.FOLLOWING_PLAYER;
 			return State.IDLE;
@@ -91,10 +105,16 @@ func _determine_next_state() -> int:
 		State.FOLLOWING_PLAYER:
 			if closest_food:
 				return State.SEEKING_FOOD;
+			if closest_gold_underground:
+				return State.SEEKING_GOLD
 			if distance_from_player <= player_distance_preference:
 				return State.IDLE;
 			return State.FOLLOWING_PLAYER;
-	
+		State.SEEKING_GOLD:
+			if on_this_gold:
+				target = null;
+				return State.DIGGING_DOWN;
+			return State.SEEKING_GOLD;
 	return State.IDLE
 
 
@@ -109,8 +129,10 @@ func _transition_to_state(prior_state : int, next_state : int) -> void:
 					collision_layer = 1;
 					collision_mask = 1;
 		State.SEEKING_FOOD:
-			target = closest_food
-			closest_food = null	
+			target = closest_food;
+			closest_food = null;
+		State.SEEKING_GOLD:
+			target = closest_gold_underground;
 
 
 func _act() -> void:
@@ -121,12 +143,18 @@ func _act() -> void:
 				Vector2.ZERO);
 		State.DIGGING_DOWN:
 			animation_state.travel("Digging Down");
+		State.UNDERGROUND:
+			if on_this_gold:
+				on_this_gold.queue_free();
+				on_this_gold = null;
 		State.DIGGING_UP:
 			animation_state.travel("Digging Up");
 		State.SEEKING_FOOD:
 			_move_towards(target.position);
 		State.FOLLOWING_PLAYER:
 			_move_towards(player.position);
+		State.SEEKING_GOLD:
+			_move_towards(target.position);
 
 # TODO Pathfinding
 func _move_towards(position_to_move_towards) -> void:
