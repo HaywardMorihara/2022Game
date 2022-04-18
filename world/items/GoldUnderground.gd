@@ -17,4 +17,5 @@ func _ready():
 
 
 func _on_Area2D_body_entered(body):
-	body.on_this_gold = self;
+	if body.is_in_group("creature"):
+		body.on_this_gold = self;

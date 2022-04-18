@@ -100,7 +100,7 @@ func _determine_next_state() -> int:
 				return State.UNDERGROUND;
 			return State.DIGGING_DOWN;
 		State.UNDERGROUND:
-			if (fear > 0.00 && distance_from_player > fear * fear_distance_multiplier):
+			if (fear <= 0.00 or (fear > 0.00 && distance_from_player > fear * fear_distance_multiplier)):
 				return State.DIGGING_UP;
 			return State.UNDERGROUND;
 		State.DIGGING_UP:
