@@ -2,6 +2,10 @@ extends KinematicBody2D
 
 # TODO Figure out how inheritance should work here...
 
+signal place_item(item, global_pos)
+
+var gold_resource 
+
 export var fear : float = 1.0
 export var love : float = 0.0
 
@@ -17,7 +21,6 @@ var environment : YSort
 var player : KinematicBody2D
 var closest_food : Area2D
 var closest_gold_underground : Area2D
-var target
 var on_this_gold
 
 enum State {IDLE, DIGGING_DOWN, UNDERGROUND, DIGGING_UP, FOLLOWING_PLAYER, SEEKING_FOOD, SEEKING_GOLD};
@@ -34,6 +37,8 @@ func eat(food) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	gold_resource = preload("res://world/items/Gold.tscn");
+	
 	# TODO Temporary hack
 	environment = get_parent();
 	player = environment.get_node("Player");
@@ -56,6 +61,12 @@ func _process(delta):
 func _determine_next_state() -> int:
 	# TODO How can we make this more efficient?
 	var distance_from_player := player.global_position.distance_to(global_position);
+	
+	# TODO Refactor - this should probably be done somewhere else
+	if not is_instance_valid(closest_food):
+		closest_food = null;
+	if not is_instance_valid(closest_gold_underground):
+		closest_gold_underground = null;
 	
 	# TODO How can we make this more efficient?
 	var distance_to_closest_food : float = food_detection_radius;
@@ -112,7 +123,6 @@ func _determine_next_state() -> int:
 			return State.FOLLOWING_PLAYER;
 		State.SEEKING_GOLD:
 			if on_this_gold:
-				target = null;
 				return State.DIGGING_DOWN;
 			return State.SEEKING_GOLD;
 	return State.IDLE
@@ -121,6 +131,19 @@ func _determine_next_state() -> int:
 func _transition_to_state(prior_state : int, next_state : int) -> void:
 	match next_state:
 		State.UNDERGROUND:
+			match prior_state:
+				State.DIGGING_DOWN:
+					if on_this_gold:
+						on_this_gold.queue_free();
+						on_this_gold = null;
+						var gold = gold_resource.instance();
+						# TODO Tweak this
+						gold.position += Vector2(0,5);
+						add_child(gold);
+								# TODO Better way to do this?
+					for child in get_children():
+						if child.is_in_group("gold"):
+							child.visible = false;
 			collision_layer = 2;
 			collision_mask = 2;
 		State.IDLE:
@@ -128,11 +151,19 @@ func _transition_to_state(prior_state : int, next_state : int) -> void:
 				State.DIGGING_UP:
 					collision_layer = 1;
 					collision_mask = 1;
-		State.SEEKING_FOOD:
-			target = closest_food;
-			closest_food = null;
-		State.SEEKING_GOLD:
-			target = closest_gold_underground;
+					# TODO Better way to do this?
+					for child in get_children():
+						if child.is_in_group("gold"):
+							child.visible = true;
+				State.FOLLOWING_PLAYER:
+					# TODO Better way to do this?
+					if love > 0.0:
+						for child in get_children():
+							if child.is_in_group("gold"):
+								var g_pos = child.global_position;
+								remove_child(child);
+								emit_signal("place_item", child, g_pos);
+				
 
 
 func _act() -> void:
@@ -144,17 +175,15 @@ func _act() -> void:
 		State.DIGGING_DOWN:
 			animation_state.travel("Digging Down");
 		State.UNDERGROUND:
-			if on_this_gold:
-				on_this_gold.queue_free();
-				on_this_gold = null;
+			pass
 		State.DIGGING_UP:
 			animation_state.travel("Digging Up");
 		State.SEEKING_FOOD:
-			_move_towards(target.position);
+			_move_towards(closest_food.position);
 		State.FOLLOWING_PLAYER:
 			_move_towards(player.position);
 		State.SEEKING_GOLD:
-			_move_towards(target.position);
+			_move_towards(closest_gold_underground.position);
 
 # TODO Pathfinding
 func _move_towards(position_to_move_towards) -> void:

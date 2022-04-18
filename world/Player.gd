@@ -27,7 +27,12 @@ func _process(delta: float) -> void:
 			input_direction_normalized.x, 
 			-input_direction_normalized.y));
 
+	# TODO Refactor
 	var apple_count = 0
 	if inventory.has("apple"):
-		apple_count = inventory["apple"]
-	$CanvasLayer/HBoxContainer/AppleCount.text = "x%s" % apple_count
+		apple_count = inventory["apple"];
+	$CanvasLayer/HBoxContainer/AppleCount.text = "x%s" % apple_count;
+	var gold_count = 0
+	if inventory.has("gold"):
+		gold_count = inventory["gold"];
+	$CanvasLayer/HBoxContainer/GoldCount.text = "x%s" % gold_count;

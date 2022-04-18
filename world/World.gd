@@ -20,3 +20,9 @@ func _on_Player_place_item(position):
 	apple.position = position;
 	apple.placed_by_player = true;
 	$YSort.add_child(apple);
+
+
+func _on_Creature1_place_item(item, global_pos):
+	item.global_position = global_pos;
+	$YSort.add_child(item);
+	item.set_owner($YSort);

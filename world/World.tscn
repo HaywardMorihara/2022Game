@@ -58,3 +58,4 @@ position = Vector2( 131.032, 19.2138 )
 position = Vector2( 183.634, 50.0819 )
 
 [connection signal="place_item" from="YSort/Player" to="." method="_on_Player_place_item"]
+[connection signal="place_item" from="YSort/Creature1" to="." method="_on_Creature1_place_item"]
