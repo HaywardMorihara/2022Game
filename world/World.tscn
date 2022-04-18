@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://world/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/creatures/Creature1.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://world/items/food/Apple.tscn" type="PackedScene" id=4]
 [ext_resource path="res://world/World.gd" type="Script" id=5]
 [ext_resource path="res://world/items/GoldUnderground.tscn" type="PackedScene" id=6]
+[ext_resource path="res://world/environment/Tree.tscn" type="PackedScene" id=7]
 
 [sub_resource type="TileSet" id=1]
 0/name = "grass-tileset.png 0"
@@ -44,18 +45,46 @@ tile_data = PoolIntArray( -196613, 0, 7, -196612, 0, 0, -196611, 0, 0, -131076, 
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Player" parent="YSort" instance=ExtResource( 1 )]
-position = Vector2( 43.7823, 29.2932 )
+position = Vector2( 178.935, 151.431 )
 
 [node name="Creature1" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 131.662, 82.5249 )
+position = Vector2( 266.815, 204.663 )
 
 [node name="Apple" parent="YSort" instance=ExtResource( 4 )]
+position = Vector2( 135.153, 122.138 )
 
 [node name="Apple2" parent="YSort" instance=ExtResource( 4 )]
-position = Vector2( 131.032, 19.2138 )
+position = Vector2( 266.185, 141.352 )
+
+[node name="Apple3" parent="YSort" instance=ExtResource( 4 )]
+position = Vector2( 228.809, 265.492 )
+
+[node name="Apple4" parent="YSort" instance=ExtResource( 4 )]
+position = Vector2( 104.001, 154.366 )
+
+[node name="Apple5" parent="YSort" instance=ExtResource( 4 )]
+position = Vector2( 93.3228, 94.2986 )
+
+[node name="Apple6" parent="YSort" instance=ExtResource( 4 )]
+position = Vector2( 135.37, 152.03 )
 
 [node name="Area2D" parent="YSort" instance=ExtResource( 6 )]
-position = Vector2( 183.634, 50.0819 )
+position = Vector2( 318.787, 172.22 )
+
+[node name="StaticBody2D" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 235.001, 124.973 )
+
+[node name="StaticBody2D2" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 324.45, 148.661 )
+
+[node name="StaticBody2D3" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 231.996, 185.077 )
+
+[node name="StaticBody2D4" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 150.149, 210.002 )
+
+[node name="StaticBody2D5" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 163.407, 133.988 )
 
 [connection signal="place_item" from="YSort/Player" to="." method="_on_Player_place_item"]
 [connection signal="place_item" from="YSort/Creature1" to="." method="_on_Creature1_place_item"]
