@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="2022Game"
-run/main_scene="res://game/views/Game.tscn"
+run/main_scene="res://ui/menus/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [display]
@@ -55,6 +55,14 @@ texture={
 "size_limit": 0,
 "stream": false,
 "svg/scale": 1.0
+}
+
+[input]
+
+ui_home={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777229,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
 }
 
 [input_devices]

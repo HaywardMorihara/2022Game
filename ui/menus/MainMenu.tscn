@@ -1,21 +1,37 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui/text/RichText.tscn" type="PackedScene" id=1]
-[ext_resource path="res://game/ControlView.tscn" type="PackedScene" id=2]
+[ext_resource path="res://game/Frame.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/menus/MenuButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ui/menus/MainMenu.gd" type="Script" id=4]
+[ext_resource path="res://ui/menus/StartButton.gd" type="Script" id=5]
 
 [node name="Game" instance=ExtResource( 2 )]
-script = null
 
 [node name="Control" type="Control" parent="VBoxContainer" index="0"]
 margin_right = 480.0
 margin_bottom = 360.0
 rect_min_size = Vector2( 0, 360 )
+script = ExtResource( 4 )
 
 [node name="Title" parent="VBoxContainer/Control" index="0" instance=ExtResource( 1 )]
-margin_left = 212.925
-margin_top = 124.726
-margin_right = 252.925
-margin_bottom = 164.726
+margin_left = 205.798
+margin_top = 56.1267
+margin_right = 245.798
+margin_bottom = 96.1267
+
+[node name="StartButton" parent="VBoxContainer/Control" index="1" instance=ExtResource( 3 )]
+text = "Start"
+script = ExtResource( 5 )
+
+[node name="CreditsButton" parent="VBoxContainer/Control" index="2" instance=ExtResource( 3 )]
+margin_left = 181.459
+margin_top = 173.527
+margin_right = 268.459
+margin_bottom = 195.527
+text = "Credits"
 
 [node name="HBoxContainer" parent="VBoxContainer" index="1"]
 margin_top = 364.0
+
+[connection signal="pressed" from="VBoxContainer/Control/StartButton" to="VBoxContainer/Control/StartButton" method="_on_StartButton_pressed"]
