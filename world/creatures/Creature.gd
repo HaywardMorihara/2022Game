@@ -54,7 +54,11 @@ func _process(delta):
 	_transition_to_state(current_state, next_state);
 	current_state = next_state;
 	_act();
-	$DebugInfo.text = "State: %s\nfear: %s\nlove: %s\nAnimationState: %s" % [State.keys()[current_state], fear, love, animation_state.get_current_node()];
+	if Global.DEBUG_MODE:
+		$DebugInfo.visible = true;
+		$DebugInfo.text = "State: %s\nfear: %s\nlove: %s\nAnimationState: %s" % [State.keys()[current_state], fear, love, animation_state.get_current_node()];
+	else:
+		$DebugInfo.visible = false;
 
 # TODO Maybe should refactor this to be more like a decision tree?
 # TODO Any nice way to generate a state graph?

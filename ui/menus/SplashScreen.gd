@@ -7,6 +7,8 @@ var progress := 0.0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if Global.DEBUG_MODE:
+		get_tree().change_scene("res://game/Game.tscn");
 	progress += delta;
 	var progress_percent := progress / wait_time;
 	$ProgressBar.set_value(progress_percent * 100);
