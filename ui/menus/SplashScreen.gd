@@ -9,7 +9,6 @@ var progress := 0.0
 func _process(delta):
 	progress += delta;
 	var progress_percent := progress / wait_time;
-	print(progress_percent);
 	$ProgressBar.set_value(progress_percent * 100);
 	if progress_percent >= 1.0:
 		get_tree().change_scene("res://ui/menus/MainMenu.tscn");

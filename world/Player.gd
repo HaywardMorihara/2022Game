@@ -11,9 +11,10 @@ func _process(delta: float) -> void:
 	input_direction.x = Input.get_axis("ui_left", "ui_right");
 	input_direction.y = Input.get_axis("ui_up", "ui_down")
 	
-	var input_direction_normalized := input_direction.normalized();
+	# Clamping so we don't lose small increments by joysticks
+	var input_direction_clamped := input_direction.clamped(1.0);
 	
-	move_and_slide(input_direction_normalized * speed);
+	move_and_slide(input_direction_clamped * speed);
 
 	if Input.is_action_just_pressed("ui_accept") && inventory.has("apple") && inventory["apple"] > 0:
 		inventory["apple"] -= 1;
@@ -21,6 +22,8 @@ func _process(delta: float) -> void:
 		var placement_offset = Vector2(0,10);
 		emit_signal("place_item", position + placement_offset);
 
+	# Noramlizing so the blend tree can recognize which direction should be animated, even if it's a small increment
+	var input_direction_normalized := input_direction.normalized();
 	$Sprite/AnimationTree.set(
 		"parameters/Idle/blend_position", 
 		Vector2(
