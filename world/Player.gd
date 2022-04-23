@@ -13,13 +13,12 @@ func _process(delta: float) -> void:
 	
 	# Clamping so we don't lose small increments by joysticks
 	var input_direction_clamped := input_direction.clamped(1.0);
-	
 	move_and_slide(input_direction_clamped * speed);
 
 	if Input.is_action_just_pressed("ui_accept") && inventory.has("apple") && inventory["apple"] > 0:
 		inventory["apple"] -= 1;
 		# TODO Make this in the direction that the player is "pointed"
-		var placement_offset = Vector2(0,10);
+		var placement_offset = Vector2(0, 20);
 		emit_signal("place_item", position + placement_offset);
 
 	# Noramlizing so the blend tree can recognize which direction should be animated, even if it's a small increment
@@ -39,3 +38,7 @@ func _process(delta: float) -> void:
 	if inventory.has("gold"):
 		gold_count = inventory["gold"];
 	$CanvasLayer/HBoxContainer/GoldCount.text = "x%s" % gold_count;
+	
+	if input_direction != Vector2.ZERO && not $Footsteps.playing:
+		$Footsteps.play();
+	
