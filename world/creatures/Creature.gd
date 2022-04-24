@@ -27,6 +27,8 @@ enum State {IDLE, DIGGING_DOWN, UNDERGROUND, DIGGING_UP, FOLLOWING_PLAYER, SEEKI
 var current_state : int
 var animation_state : AnimationNodeStateMachinePlayback;
 
+var move_direction_normalized := Vector2.ZERO;
+
 # AI Terms (web.pdx.edu/~arhodes/ai5.pdf)
 # Environment, Percepts, Sensors, Agent, _actuators, _actions
 
@@ -53,7 +55,10 @@ func _process(delta):
 	var next_state := _determine_next_state();
 	_transition_to_state(current_state, next_state);
 	current_state = next_state;
-	_act();
+	_decide_actions_for_state();
+	_actuate();
+	_vfx();
+	_sfx();
 	if Global.DEBUG_MODE:
 		$DebugInfo.visible = true;
 		$DebugInfo.text = "State: %s\nfear: %s\nlove: %s\nAnimationState: %s" % [State.keys()[current_state], fear, love, animation_state.get_current_node()];
@@ -169,8 +174,8 @@ func _transition_to_state(prior_state : int, next_state : int) -> void:
 								emit_signal("place_item", child, g_pos);
 				
 
-
-func _act() -> void:
+func _decide_actions_for_state() -> void:
+	move_direction_normalized = Vector2.ZERO;
 	match current_state:
 		State.IDLE:
 			$Sprite/AnimationTree.set(
@@ -183,22 +188,31 @@ func _act() -> void:
 		State.DIGGING_UP:
 			animation_state.travel("Digging Up");
 		State.SEEKING_FOOD:
-			_move_towards(closest_food.position);
+			_determine_velocity_to_get_to(closest_food.position);
 		State.FOLLOWING_PLAYER:
-			_move_towards(player.position);
+			_determine_velocity_to_get_to(player.position);
 		State.SEEKING_GOLD:
-			_move_towards(closest_gold_underground.position);
+			_determine_velocity_to_get_to(closest_gold_underground.position);
+
+
+func _actuate() -> void:
+	move_and_slide(move_direction_normalized * speed);
+
+
+func _vfx() -> void:
+	$Sprite/AnimationTree.set(
+	"parameters/Idle/blend_position", 
+	Vector2(
+		move_direction_normalized.x, 
+		-move_direction_normalized.y));
+
+
+func _sfx() -> void:
+	if move_direction_normalized != Vector2.ZERO && not $Footsteps.playing:
+		$Footsteps.play();
+
 
 # TODO Pathfinding
-func _move_towards(position_to_move_towards) -> void:
-	var direction := position.direction_to(position_to_move_towards);
-
-	var direction_normalized := direction.normalized();
-
-	move_and_slide(direction_normalized * speed);
-
-	$Sprite/AnimationTree.set(
-		"parameters/Idle/blend_position", 
-		Vector2(
-			direction_normalized.x, 
-			-direction_normalized.y));
+func _determine_velocity_to_get_to(position_to_determine_velocity_to_get_to) -> void:
+	var direction := position.direction_to(position_to_determine_velocity_to_get_to);
+	move_direction_normalized = direction.normalized();

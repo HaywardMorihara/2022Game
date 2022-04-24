@@ -213,5 +213,5 @@ text = "xX"
 
 [node name="Footsteps" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
-volume_db = -10.0
+volume_db = -2.0
 pitch_scale = 0.6
