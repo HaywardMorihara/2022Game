@@ -210,6 +210,9 @@ func _vfx() -> void:
 func _sfx() -> void:
 	if move_direction_normalized != Vector2.ZERO && not $Footsteps.playing:
 		$Footsteps.play();
+	# TODO Move this to the Creature1 Scene
+	if (current_state == State.DIGGING_DOWN or current_state == State.DIGGING_UP) && not $DiggingSounds.playing:
+		$DiggingSounds.play();
 
 
 # TODO Pathfinding

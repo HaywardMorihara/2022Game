@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://assets/sfx/RPGsounds_Kenney/OGG/footstep09.wav" type="AudioStream" id=1]
 [ext_resource path="res://world/creatures/Creature.gd" type="Script" id=2]
 [ext_resource path="res://ui/text/RichText.tscn" type="PackedScene" id=3]
 
@@ -23,3 +24,6 @@ margin_right = 83.0
 margin_bottom = -10.0
 
 [node name="Footsteps" type="AudioStreamPlayer" parent="."]
+
+[node name="DiggingSounds" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
