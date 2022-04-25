@@ -10,5 +10,6 @@ margin_left = 175.109
 margin_top = 129.873
 margin_right = 262.109
 margin_bottom = 149.873
+custom_colors/font_color_focus = Color( 1, 0.992157, 0.447059, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "Menu Button"
