@@ -18,8 +18,6 @@ func _ready():
 
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("player"):
-		if body.inventory.has("gold"):
-			body.inventory["gold"] += 1;
-		else:
-			body.inventory["gold"] = 1;
-		queue_free();
+		var was_picked_up = body.pickup("gold");
+		if was_picked_up:
+			queue_free();

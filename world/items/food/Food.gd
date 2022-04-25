@@ -17,11 +17,9 @@ func _process(delta):
 
 func _on_Food_body_entered(body):
 	if body.is_in_group("player"):
-		if body.inventory.has(food_name):
-			body.inventory[food_name] += 1;
-		else:
-			body.inventory[food_name] = 1;
-		queue_free();
+		var was_picked_up = body.pickup(food_name);
+		if was_picked_up:
+			queue_free();
 	elif body.is_in_group("creature"):
 		body.eat(self);
 		queue_free();

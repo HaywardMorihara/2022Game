@@ -6,6 +6,19 @@ export var speed : float = 100
 
 var inventory = {}
 
+func pickup(item_name: String) -> bool:
+	if inventory.has(item_name):
+		inventory[item_name] += 1;
+	else:
+		inventory[item_name] = 1;
+	# TODO Move to a general _sfx() function
+	match item_name:
+		"apple":
+			$ApplePickup.play();
+		"gold":
+			$GoldPickup.play();
+	return true
+
 func _process(delta: float) -> void:
 	var input_direction := Vector2.ZERO;
 	input_direction.x = Input.get_axis("ui_left", "ui_right");
@@ -20,6 +33,8 @@ func _process(delta: float) -> void:
 		# TODO Make this in the direction that the player is "pointed"
 		var placement_offset = Vector2(0, 20);
 		emit_signal("place_item", position + placement_offset);
+		# TODO Move to a general _sfx() function
+		$ApplePlacement.play();
 
 	# Noramlizing so the blend tree can recognize which direction should be animated, even if it's a small increment
 	var input_direction_normalized := input_direction.normalized();

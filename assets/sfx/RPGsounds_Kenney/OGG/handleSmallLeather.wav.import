@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/handleSmallLeather.wav-ec30c5aaf8c5371c15a9441738771d0c.sample"
+
+[deps]
+
+source_file="res://assets/sfx/RPGsounds_Kenney/OGG/handleSmallLeather.wav"
+dest_files=[ "res://.import/handleSmallLeather.wav-ec30c5aaf8c5371c15a9441738771d0c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/font/hf-free-complete/equipment-pro-v1.1/EquipmentPro.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/font/press-start-2p-font/PressStart2P-vaV7.ttf" type="DynamicFontData" id=1]
 
 [sub_resource type="DynamicFont" id=1]
 size = 8

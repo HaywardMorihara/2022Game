@@ -5,7 +5,7 @@
 [ext_resource path="res://game/DebugModeSwitch.gd" type="Script" id=3]
 [ext_resource path="res://assets/art/ui/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/silver-A.png" type="Texture" id=4]
 [ext_resource path="res://assets/art/ui/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/silver-A-pushed.png" type="Texture" id=5]
-[ext_resource path="res://assets/font/hf-free-complete/equipment-pro-v1.1/EquipmentPro.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://assets/font/press-start-2p-font/PressStart2P-vaV7.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://game/MenuButton.gd" type="Script" id=7]
 
 [sub_resource type="DynamicFont" id=1]
@@ -49,10 +49,10 @@ pressed = ExtResource( 5 )
 action = "ui_accept"
 
 [node name="MenuButton" type="Button" parent="VBoxContainer/Control"]
-margin_left = 221.749
-margin_top = 316.143
-margin_right = 269.749
-margin_bottom = 338.143
+margin_left = 215.756
+margin_top = 315.394
+margin_right = 291.756
+margin_bottom = 337.394
 custom_fonts/font = SubResource( 1 )
 text = "Menu"
 script = ExtResource( 7 )

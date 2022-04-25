@@ -24,6 +24,9 @@ margin_right = 83.0
 margin_bottom = -10.0
 
 [node name="Footsteps" type="AudioStreamPlayer" parent="."]
+volume_db = -5.0
 
 [node name="DiggingSounds" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
+
+[node name="Eating" type="AudioStreamPlayer" parent="."]

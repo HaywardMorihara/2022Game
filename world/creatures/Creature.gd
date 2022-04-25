@@ -36,6 +36,8 @@ func eat(food) -> void:
 	if food.placed_by_player:
 		fear -= disposition_to_fear
 		love += disposition_to_love
+	# TODO Move to _sfx() - probably will want to make an "eating" state
+	$Eating.play();
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
