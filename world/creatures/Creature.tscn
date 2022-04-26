@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/sfx/RPGsounds_Kenney/OGG/footstep09.wav" type="AudioStream" id=1]
 [ext_resource path="res://world/creatures/Creature.gd" type="Script" id=2]
 [ext_resource path="res://ui/text/RichText.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/art/sprites/heart.png" type="Texture" id=4]
+[ext_resource path="res://assets/art/sprites/surprise.png" type="Texture" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 3.77096
@@ -55,3 +56,11 @@ damping = 10.0
 scale_amount = 0.5
 scale_amount_random = 0.1
 color_ramp = SubResource( 2 )
+
+[node name="Surprise" type="CPUParticles2D" parent="."]
+position = Vector2( 0.297302, -8.7704 )
+emitting = false
+amount = 1
+one_shot = true
+texture = ExtResource( 5 )
+gravity = Vector2( 0, 0 )

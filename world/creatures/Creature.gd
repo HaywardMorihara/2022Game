@@ -101,6 +101,8 @@ func _determine_next_state() -> int:
 	match current_state:
 		State.IDLE:
 			if (fear > 0.00 && distance_from_player < fear * fear_distance_multiplier):
+				# TODO Refactor - move to _vfx()
+				$Surprise.restart();
 				return State.DIGGING_DOWN;	
 			if (closest_food):
 				return State.SEEKING_FOOD;
@@ -125,6 +127,8 @@ func _determine_next_state() -> int:
 			if not closest_food:
 				return State.IDLE;
 			if (fear > 0.00 && distance_from_player < fear * fear_distance_multiplier):
+				# TODO Refactor - move to _vfx()
+				$Surprise.restart();
 				return State.DIGGING_DOWN;	
 			return State.SEEKING_FOOD;
 		State.FOLLOWING_PLAYER:

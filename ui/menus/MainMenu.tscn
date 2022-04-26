@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
+[ext_resource path="res://assets/font/press-start-2p-font/PressStart2P-vaV7.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://game/Frame.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/menus/MenuButton.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/menus/MainMenu.gd" type="Script" id=4]
@@ -29,6 +30,9 @@
 0/shape_one_way_margin = 0.0
 0/shapes = [  ]
 0/z_index = 0
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 1 )
 
 [node name="Game" instance=ExtResource( 2 )]
 
@@ -64,6 +68,7 @@ margin_left = 137.805
 margin_top = 111.377
 margin_right = 329.805
 margin_bottom = 127.377
+custom_fonts/font = SubResource( 2 )
 text = "Wombat Buddy"
 
 [node name="Control" parent="VBoxContainer" index="1"]
