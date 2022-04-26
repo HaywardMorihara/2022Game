@@ -32,10 +32,13 @@ var move_direction_normalized := Vector2.ZERO;
 # AI Terms (web.pdx.edu/~arhodes/ai5.pdf)
 # Environment, Percepts, Sensors, Agent, _actuators, _actions
 
+# TODO Refactor - for general learning
 func eat(food) -> void:
 	if food.placed_by_player:
 		fear -= disposition_to_fear
 		love += disposition_to_love
+		# TODO to _vfx() or something?
+		$Hearts.restart();
 	# TODO Move to _sfx() - probably will want to make an "eating" state
 	$Eating.play();
 

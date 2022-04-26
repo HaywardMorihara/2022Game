@@ -3,4 +3,5 @@
 [ext_resource path="res://assets/font/press-start-2p-font/PressStart2P-vaV7.ttf" type="DynamicFontData" id=1]
 
 [resource]
+size = 8
 font_data = ExtResource( 1 )
