@@ -59,6 +59,11 @@ margin_left = 72.0
 margin_top = 61.0
 margin_right = 416.0
 margin_bottom = 311.0
+text = "Font: https://opengameart.org/content/melody-vollen
+
+Music: https://opengameart.org/content/melody-vollen
+
+Sound Effects: https://opengameart.org/content/50-rpg-sound-effects"
 
 [node name="MenuButton" parent="VBoxContainer/Control2" index="3" instance=ExtResource( 3 )]
 margin_left = 188.594
