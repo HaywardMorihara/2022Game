@@ -1,4 +1,4 @@
-extends Button
+extends Node
 
 
 # Declare member variables here. Examples:
@@ -17,4 +17,4 @@ func _ready():
 
 
 func _on_MenuButton_pressed():
-	get_tree().change_scene("res://ui/menus/MainMenu.tscn");
+	$VBoxContainer/GameView.pause_menu();
