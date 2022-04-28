@@ -63,7 +63,11 @@ text = "Font: https://opengameart.org/content/melody-vollen
 
 Music: https://opengameart.org/content/melody-vollen
 
-Sound Effects: https://opengameart.org/content/50-rpg-sound-effects"
+Sound Effects: https://opengameart.org/content/50-rpg-sound-effects
+
+Virtual Joystick: https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot
+
+Button: https://cazwolf.itch.io/caz-pixel-letters"
 
 [node name="MenuButton" parent="VBoxContainer/Control2" index="3" instance=ExtResource( 3 )]
 margin_left = 188.594
