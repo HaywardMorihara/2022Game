@@ -13,7 +13,7 @@ func pickup(item_name: String) -> bool:
 		inventory[item_name] = 1;
 	
 	# TODO Remove - hack for game jam
-	if inventory.has("gold") && inventory["gold"] == 1:
+	if inventory.has("gold") && inventory["gold"] == 10:
 		Global.WIN_CONDITIONS_MET = true;
 	
 	# TODO Move to a general _sfx() function
