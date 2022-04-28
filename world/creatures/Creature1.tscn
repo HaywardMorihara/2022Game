@@ -217,6 +217,8 @@ tracks/0/keys = {
 
 [node name="Creature1" instance=ExtResource( 1 )]
 speed = 125.0
+fear_distance_multiplier = 100.0
+player_distance_preference = 40.0
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )
