@@ -13,6 +13,9 @@ food_name = "apple"
 position = Vector2( -0.491077, -0.526155 )
 shape = SubResource( 1 )
 
-[node name="Sprite" parent="." index="1"]
+[node name="Shadow" parent="." index="1"]
+offset = Vector2( 0, 2 )
+
+[node name="Sprite" parent="." index="2"]
 texture = ExtResource( 2 )
 hframes = 2

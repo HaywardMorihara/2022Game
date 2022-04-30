@@ -58,6 +58,7 @@ custom_fonts/font = SubResource( 1 )
 text = "Menu"
 
 [node name="DebugModeSwitch" type="CheckButton" parent="VBoxContainer/Control"]
+visible = false
 margin_left = 313.146
 margin_top = 313.895
 margin_right = 478.146

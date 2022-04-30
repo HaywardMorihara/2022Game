@@ -256,3 +256,6 @@ stream = ExtResource( 4 )
 
 [node name="Hearts" parent="." index="6"]
 position = Vector2( -0.198425, -6.05195 )
+
+[node name="Shadow" parent="." index="8"]
+visible = false
